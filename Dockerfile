@@ -18,5 +18,8 @@ COPY . .
 # build app for production with minification
 RUN npm run build
 
+# Network / reverse proxy config
+LABEL traefik.http.routers.hellofe.rule="Host(`hello-frontend.ds.ava.hfg.design`)"
+
 EXPOSE 8080
 CMD [ "http-server", "dist" ]
