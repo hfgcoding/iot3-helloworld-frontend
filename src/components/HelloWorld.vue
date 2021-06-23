@@ -19,9 +19,17 @@ export default {
     msg: String
   },
   mounted() {
-    axios.get("https://helloapi.ds.ava.hfg.design/api/v1/hello").then((res)=>{
-      this.apidata = res.data
-    }).catch((e) => console.log(e))
+    if(process.env.NODE_ENV === "development") {
+      console.log("Lokaler Endpoint - Entwicklung")
+      axios.get("http://localhost:3000/api/v1/hello").then((res)=>{
+        this.apidata = res.data
+      }).catch((e) => console.log(e))
+    } else {
+      console.log("Remote Endpoint - Container")
+      axios.get("https://helloapi.ds.ava.hfg.design/api/v1/hello").then((res)=>{
+        this.apidata = res.data
+      }).catch((e) => console.log(e))
+    }
   }
 }
 </script>
